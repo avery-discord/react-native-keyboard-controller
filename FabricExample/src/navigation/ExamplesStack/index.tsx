@@ -8,6 +8,7 @@ import ReanimatedChat from '../../screens/Examples/ReanimatedChat';
 import Events from '../../screens/Examples/Events';
 import AwareScrollView from '../../screens/Examples/AwareScrollView';
 import StatusBar from '../../screens/Examples/StatusBar';
+import LottieAnimation from '../../screens/Examples/Lottie';
 import NonUIProps from '../../screens/Examples/NonUIProps';
 import InteractiveKeyboard from '../../screens/Examples/InteractiveKeyboard';
 import InteractiveKeyboardIOS from '../../screens/Examples/InteractiveKeyboardIOS';
@@ -18,6 +19,7 @@ export type ExamplesStackParamList = {
   [ScreenNames.EVENTS]: undefined;
   [ScreenNames.AWARE_SCROLL_VIEW]: undefined;
   [ScreenNames.STATUS_BAR]: undefined;
+  [ScreenNames.LOTTIE]: undefined;
   [ScreenNames.NON_UI_PROPS]: undefined;
   [ScreenNames.INTERACTIVE_KEYBOARD]: undefined;
   [ScreenNames.INTERACTIVE_KEYBOARD_IOS]: undefined;
@@ -41,6 +43,9 @@ const options = {
   [ScreenNames.STATUS_BAR]: {
     headerShown: false,
     title: 'Status bar manipulation',
+  },
+  [ScreenNames.LOTTIE]: {
+    title: 'Lottie animation',
   },
   [ScreenNames.NON_UI_PROPS]: {
     title: 'Non UI Props',
@@ -79,6 +84,11 @@ const ExamplesStack = () => (
       name={ScreenNames.STATUS_BAR}
       component={StatusBar}
       options={options[ScreenNames.STATUS_BAR]}
+    />
+    <Stack.Screen
+      name={ScreenNames.LOTTIE}
+      component={LottieAnimation}
+      options={options[ScreenNames.LOTTIE]}
     />
     <Stack.Screen
       name={ScreenNames.NON_UI_PROPS}
