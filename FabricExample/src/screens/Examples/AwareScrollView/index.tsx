@@ -11,20 +11,22 @@ export default function AwareScrollView() {
   useResizeMode();
 
   return (
-    <KeyboardAwareScrollView style={styles.container}>
+    <>
       {new Array(10).fill(0).map((_, i) => (
         <TextInput
           key={i}
           placeholder={`${i}`}
           placeholderTextColor="black"
+          multiline
           style={{
             width: '100%',
-            height: 50,
+            minHeight: 50,
+            // maxHeight: 250,
             backgroundColor: randomColor(),
             marginTop: 50,
           }}
         />
       ))}
-    </KeyboardAwareScrollView>
+    </>
   );
 }

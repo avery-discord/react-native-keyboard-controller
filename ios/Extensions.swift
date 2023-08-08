@@ -35,10 +35,12 @@ public extension UIResponder {
   static var current: UIResponder? {
     UIResponder._currentFirstResponder = nil
     UIApplication.shared.sendAction(#selector(findFirstResponder(sender:)), to: nil, from: nil, for: nil)
+      print(UIResponder._currentFirstResponder)
     return UIResponder._currentFirstResponder
   }
 
   @objc internal func findFirstResponder(sender _: AnyObject) {
+    print(self)
     UIResponder._currentFirstResponder = self
   }
 }
@@ -51,4 +53,26 @@ public extension Optional where Wrapped == UIResponder {
       return (self as? RCTUITextField)?.superview?.reactTag ?? -1
     #endif
   }
+}
+
+extension UIView {
+    @objc dynamic func customSetBounds(_ bounds: CGRect) {
+        // Perform your observation logic here
+        print("Bounds changed to: \(bounds)")
+        
+        // Call the original implementation using method swizzling
+        customSetBounds(bounds)
+    }
+    
+    static func swizzleSetBounds() {
+        let originalSelector = #selector(setter: UIView.bounds)
+        let swizzledSelector = #selector(customSetBounds(_:))
+        
+        guard let originalMethod = class_getInstanceMethod(self, originalSelector),
+              let swizzledMethod = class_getInstanceMethod(self, swizzledSelector) else {
+            return
+        }
+        
+        method_exchangeImplementations(originalMethod, swizzledMethod)
+    }
 }

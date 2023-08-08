@@ -35,6 +35,8 @@ public class KeyboardMovementObserver: NSObject {
   private var keyboardHeight: CGFloat = 0.0
   private var duration = 0
   private var tag: NSNumber = -1
+  //
+  private var textInput: UIView?
 
   @objc public init(
     handler: @escaping (NSString, NSNumber, NSNumber, NSNumber, NSNumber) -> Void,
@@ -98,6 +100,9 @@ public class KeyboardMovementObserver: NSObject {
     change: [NSKeyValueChangeKey: Any]?,
     context _: UnsafeMutableRawPointer?
   ) {
+      print(keyPath)
+      print(object)
+      print(change?[.newKey])
     // swiftlint:disable:next force_cast
     if keyPath == "center", object as! NSObject == _keyboardView! {
       // if we are currently animating keyboard -> we need to ignore values from KVO
@@ -157,6 +162,7 @@ public class KeyboardMovementObserver: NSObject {
       data["duration"] = duration
       data["timestamp"] = Date.currentTimeStamp
       data["target"] = tag
+      print(tag)
 
       onEvent("onKeyboardMoveStart", Float(keyboardHeight) as NSNumber, 1, duration as NSNumber, tag)
       onNotify("KeyboardController::keyboardWillShow", data)
@@ -189,6 +195,17 @@ public class KeyboardMovementObserver: NSObject {
     if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
       let keyboardHeight = keyboardFrame.cgRectValue.size.height
       tag = UIResponder.current.reactViewTag
+        var view = (UIResponder.current as? UIView)?.superview as UIView?
+        textInput = view
+        view?.addObserver(self, forKeyPath: "bounds", context: nil)
+        view?.addObserver(self, forKeyPath: "center", context: nil)
+        UIView.swizzleSetBounds()
+        var boundsObservation: NSKeyValueObservation?
+        boundsObservation = textInput?.observe(\.bounds) { capturedSelf, _ in
+            print("CHANGED")
+        }
+        print(view)
+        print(tag)
       self.keyboardHeight = keyboardHeight
       let duration = Int(
         (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double ?? 0) * 1000
