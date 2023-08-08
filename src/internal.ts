@@ -13,7 +13,7 @@ export function useAnimatedKeyboardHandler<
     onKeyboardMoveEnd?: (e: NativeEvent, context: TContext) => void;
     onKeyboardMoveInteractive?: (e: NativeEvent, context: TContext) => void;
   },
-  dependencies?: ReadonlyArray<unknown>
+  dependencies?: unknown[]
 ) {
   const { context, doDependenciesDiffer } = useHandler(handlers, dependencies);
 
