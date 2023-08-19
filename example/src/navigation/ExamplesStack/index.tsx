@@ -13,6 +13,7 @@ import NonUIProps from '../../screens/Examples/NonUIProps';
 import InteractiveKeyboard from '../../screens/Examples/InteractiveKeyboard';
 import InteractiveKeyboardIOS from '../../screens/Examples/InteractiveKeyboardIOS';
 import NativeStack from '../NestedStack';
+import EnabledDisabled from '../../screens/Examples/EnabledDisabled';
 
 export type ExamplesStackParamList = {
   [ScreenNames.ANIMATED_EXAMPLE]: undefined;
@@ -25,6 +26,7 @@ export type ExamplesStackParamList = {
   [ScreenNames.INTERACTIVE_KEYBOARD]: undefined;
   [ScreenNames.INTERACTIVE_KEYBOARD_IOS]: undefined;
   [ScreenNames.NATIVE_STACK]: undefined;
+  [ScreenNames.ENABLED_DISABLED]: undefined;
 };
 
 const Stack = createStackNavigator<ExamplesStackParamList>();
@@ -60,6 +62,9 @@ const options = {
   },
   [ScreenNames.NATIVE_STACK]: {
     title: 'Native stack',
+  },
+  [ScreenNames.ENABLED_DISABLED]: {
+    title: 'Enabled/disabled',
   },
 };
 
@@ -114,6 +119,11 @@ const ExamplesStack = () => (
       name={ScreenNames.NATIVE_STACK}
       component={NativeStack}
       options={options[ScreenNames.NATIVE_STACK]}
+    />
+    <Stack.Screen
+      name={ScreenNames.ENABLED_DISABLED}
+      component={EnabledDisabled}
+      options={options[ScreenNames.ENABLED_DISABLED]}
     />
   </Stack.Navigator>
 );
