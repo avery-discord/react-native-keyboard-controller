@@ -44,4 +44,9 @@ export const examples: Example[] = [
     info: ScreenNames.NATIVE_STACK,
     icons: '⚛️',
   },
+  {
+    title: 'Enabled/disabled',
+    info: ScreenNames.ENABLED_DISABLED,
+    icons: '💡',
+  },
 ];
