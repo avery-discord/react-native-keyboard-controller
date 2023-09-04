@@ -54,14 +54,17 @@ type KeyboardProviderProps = {
    * @platform android
    */
   navigationBarTranslucent?: boolean;
+
+  initialEnable?: boolean;
 };
 
 export const KeyboardProvider = ({
   children,
   statusBarTranslucent,
   navigationBarTranslucent,
+  initialEnable = true,
 }: KeyboardProviderProps) => {
-  const [enabled, setEnabled] = useState(true);
+  const [enabled, setEnabled] = useState(initialEnable);
   // animated values
   const progress = useAnimatedValue(0);
   const height = useAnimatedValue(0);
